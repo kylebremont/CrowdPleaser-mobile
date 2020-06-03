@@ -19,7 +19,7 @@ class HomeScreen extends Component {
 				<View style={styles.loginButtonBackground}>
 					<Button
 						title="Login to Spotify"
-						onPress={() => this.props.Connect('spotify:track:5fVZC9GiM4e8vu99W0Xf6J')}
+						onPress={() => this.props.Connect('spotify:track:2BSbCCbaSCzkOEZa6N5901')}
 					/>
 				</View>
 			</SafeAreaView>

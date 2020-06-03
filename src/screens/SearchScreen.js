@@ -17,17 +17,21 @@ class SearchScreen extends Component {
 	GenerateSearchResults() {
 		return (
 			<FlatList
+				style={{ marginBottom: 20 }}
 				data={this.state.searchData}
 				renderItem={({ item, separators }) => (
 					<TouchableHighlight
 						style={styles.searchList}
 						onPress={() =>
 							this.props.AddToQueue({
-								name   : item.name,
-								artist : item.artists[0].name,
-								image  : item.album.images[0].url,
-								liked  : false
+								name     : item.name,
+								artist   : item.artists[0].name,
+								image    : item.album.images[0].url,
+								uri      : item.uri,
+								duration : item.duration_ms,
+								liked    : false
 							})}
+						underlayColor="#575757"
 						onShowUnderlay={separators.highlight}
 						onHideUnderlay={separators.unhighlight}
 					>
@@ -105,18 +109,17 @@ const styles = StyleSheet.create({
 		marginLeft  : 20,
 		marginRight : 20,
 		marginTop   : 10
-		// backgroundColor : 'whitesmoke'
 	},
 
 	songTitle  : {
 		fontSize    : 18,
-		color       : 'black',
+		color       : 'white',
 		paddingLeft : 10
 	},
 
 	songArtist : {
 		fontSize    : 15,
-		color       : '#D3D3D3',
+		color       : '#B3B3B3',
 		paddingLeft : 10
 	},
 

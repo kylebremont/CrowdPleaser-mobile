@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native';
 
+// spotify imports
 import { auth as SpotifyAuth, remote as SpotifyRemote, ApiScope, ApiConfig } from 'react-native-spotify-remote';
 
 // credentials
@@ -9,7 +10,7 @@ import { clientId, redirectUri } from './config';
 // navigation imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+// import Icon from 'react-native-vector-icons/FontAwesome'
 const Tab = createBottomTabNavigator();
 
 // screen imports
@@ -19,13 +20,24 @@ import SearchScreen from './src/screens/SearchScreen';
 import QueueScreen from './src/screens/QueueScreen';
 import PlaylistScreen from './src/screens/PlaylistScreen';
 
-// Api Config object, replace with your own applications client id and urls
+// Api Config object
 const spotifyConfig = {
 	clientID        : clientId,
 	redirectURL     : redirectUri,
 	tokenRefreshURL : 'http://10.0.0.12:1234/refresh',
 	tokenSwapURL    : 'http://10.0.0.12:1234/swap',
-	scopes          : [ ApiScope.AppRemoteControlScope, ApiScope.UserFollowReadScope ]
+	scopes          : [ 
+    ApiScope.AppRemoteControlScope, 
+    ApiScope.UserFollowReadScope,
+    'user-top-read',
+    'user-read-currently-playing',
+    'user-read-playback-state',
+    'streaming',
+    'user-read-email',
+    'user-read-private',
+    'user-modify-playback-state',
+    'app-remote-control'
+  ]
 };
 
 class App extends Component {
@@ -116,14 +128,14 @@ class App extends Component {
             //     if (route.name === 'home') {
             //       iconName = 'ios-home';
             //     } else if (route.name === 'queue') {
-            //       iconName = 'ios-list';
+            //       iconName = 'list';
             //     } else if (route.name === 'search') {
-            //       iconName = 'ios-search';
+            //       iconName = 'search';
             //     } else if (route.name === 'playlists') {
             //       iconName = 'ios-musical-notes';
             //     }
     
-            //     return <Ionicons name={iconName} size={size} color={color} />;
+            //     return <Icon name={iconName} size={size} color={color} />;
             //   },
             // })}
               tabBarOptions={{
@@ -134,8 +146,8 @@ class App extends Component {
                 }
               }}
             >
-              <Tab.Screen name='queue'>
-                {props => <QueueScreen ref={this.queueElement} />}
+              <Tab.Screen name='home'>
+                {props => <QueueScreen ref={this.queueElement} access_token={this.state.access_token} />}
               </Tab.Screen>
               {/* <Tab.Screen name='home'>
                 {props => <HomeScreen access_token={this.state.access_token} />}
